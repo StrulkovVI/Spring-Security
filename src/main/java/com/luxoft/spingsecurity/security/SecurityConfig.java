@@ -47,11 +47,11 @@ public class SecurityConfig {
                 .antMatchers("/info","/login","/deny.html","/logout").permitAll()
                 .antMatchers("/**").denyAll()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .failureUrl("/deny.html")
-                .defaultSuccessUrl("/company", true);
+                .formLogin();
+                //.loginPage("/login")
+                //.loginProcessingUrl("/login")
+                //.failureUrl("/deny.html")
+                //.defaultSuccessUrl("/company", true);
         return http.build();
     }
 }
