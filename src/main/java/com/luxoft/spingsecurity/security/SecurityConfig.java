@@ -40,15 +40,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .authorizeRequests()
-            .antMatchers("/company/**", "/user/**").authenticated()
-            .antMatchers("/info").permitAll()
-            .antMatchers("/**").denyAll()
-            .and()
-            .httpBasic();
+                .sessionManagement() // по умолчанию - spring Будет хранить сессию на сервере
+                .and()
+                .authorizeRequests()
+                .antMatchers("/company/**", "/user/**").authenticated()
+                .antMatchers("/info","/login","/deny.html","/logout").permitAll()
+                .antMatchers("/**").denyAll()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .failureUrl("/deny.html")
+                .defaultSuccessUrl("/company", true);
         return http.build();
     }
 }
