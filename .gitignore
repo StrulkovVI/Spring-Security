@@ -30,3 +30,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### OTHER ###
+requests*
+013-jva-labs.postman_collection.json
