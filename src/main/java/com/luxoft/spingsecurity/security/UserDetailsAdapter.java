@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class UserDetailsAdapter implements UserDetails {
+
     private final User user;
 
     @Override
@@ -50,5 +51,8 @@ public class UserDetailsAdapter implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+    public User getUser() {
+        return user;
     }
 }

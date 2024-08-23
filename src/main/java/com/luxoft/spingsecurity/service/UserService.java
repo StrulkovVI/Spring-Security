@@ -3,6 +3,7 @@ package com.luxoft.spingsecurity.service;
 import com.luxoft.spingsecurity.dto.UserDto;
 import com.luxoft.spingsecurity.dto.converters.UserDtoConverter;
 import com.luxoft.spingsecurity.repository.UserRepository;
+import com.luxoft.spingsecurity.security.CurrentUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserDtoConverter userDtoConverter;
+    private final CurrentUserService currentUserService;
 
     @Transactional(readOnly = true)
     public List<UserDto> getAll() {
@@ -46,5 +48,10 @@ public class UserService {
         var updated = userDtoConverter.toDomain(userDto, user);
         var fromDb = userRepository.save(updated);
         return userDtoConverter.toDto(fromDb);
+    }
+
+    @Transactional(readOnly = true)
+    public UserDto getCurrentUser() {
+        return userDtoConverter.toDto(currentUserService.getCurrentUser());
     }
 }
