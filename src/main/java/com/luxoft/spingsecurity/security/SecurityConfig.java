@@ -53,13 +53,16 @@ public class SecurityConfig {
                 .antMatchers( "/info").hasAuthority("ROLE_ANON")
                 .antMatchers("/**").denyAll()
                 .and()
-                .httpBasic()
+                .x509()
+                .userDetailsService(userDetailsService)
+                .and();
+                /*.httpBasic()
                 .and()
                 .formLogin()
                 .and()
                 .anonymous()
                 //.authorities("ROLE_ANON");
-                .principal(new UserDetailsAdapter(anonymous()));
+                .principal(new UserDetailsAdapter(anonymous()));*/
         //.loginPage("/login")
         //.loginProcessingUrl("/login")
         //.failureUrl("/deny.html")
